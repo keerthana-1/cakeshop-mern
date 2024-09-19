@@ -1,7 +1,7 @@
 import { createContext, useReducer } from "react";
 import ShippingDetails from "../features/order/ShippingDetails";
 
-interface ShippingDetails
+export interface ShippingDetails
 {
     name:string,
     phone:string,
@@ -9,7 +9,7 @@ interface ShippingDetails
     delivery:string
 }
 
-interface PaymentDetails
+export interface PaymentDetails
 {
     card_number:string,
     name:string,
@@ -34,7 +34,7 @@ export const OrderContext = createContext<orderContextType | undefined>(undefine
 type Action =
     | { type: 'UPDATE_SHIPPING'; payload: { name: string; phone: string; address: string; delivery: string; is_shipping:boolean } }
     | { type: 'UPDATE_PAYMENT'; payload: { card_number: string; name: string, security_code:string, expiry: string } }
-
+    | {type:'SET_SHIPPING'; payload:boolean}
 
 
 const initialOrderState:orderState = {
@@ -66,6 +66,11 @@ const orderReducer = (state: orderState, action: Action): orderState => {
                                        expiry:action.payload.expiry
                                         },   
              };
+        case 'SET_SHIPPING':
+            return{
+                ...state,
+                is_shipping:action.payload
+            }
        
         default:
             return state;

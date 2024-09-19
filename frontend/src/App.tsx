@@ -11,6 +11,7 @@ import Checkout from "./features/order/Checkout";
 import Cart from "./features/cart/Cart";
 import '@fontsource/poppins'; 
 import 'semantic-ui-css/semantic.min.css';
+import OrderDetails from "./features/order/OrderDetails";
 
 
 const router=createBrowserRouter([
@@ -48,8 +49,12 @@ const router=createBrowserRouter([
     element:<Cart></Cart>
   },
   {
-    path:'/cart/checkout',
+    path:'/checkout',
     element:<Checkout></Checkout>
+  },
+  {
+    path:'/orderdetails',
+    element:<OrderDetails></OrderDetails>
   }
   ] 
 }])

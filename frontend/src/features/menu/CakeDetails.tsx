@@ -71,7 +71,7 @@ function CakeDetails(){
         }
 
 
-       dispatch({"type":"ADD_TO_CART","payload":{"cakeName":cakeDetails.name,"message":message,"quantity":qty,"price":cakeDetails.price,"toppings":toppings}})
+       dispatch({"type":"ADD_TO_CART","payload":{"cakeName":cakeDetails.name,"message":message,"quantity":qty,"price":cakeDetails.price,"toppings":toppings,"image":cakeDetails.image}})
        toast("Item added to cart!")
     
     }
@@ -87,13 +87,13 @@ function CakeDetails(){
                 <div className="mb-5 text-pink-500">
                 <Link  className="hover:underline" to='/menu'> <span className="text-xl">&#8249;</span> Back</Link>
                 </div>
-                <img className="w-full h-2/3 object-cover" src={`../${cakeDetails?.image}`}></img>
+                <img className="w-full object-cover" style={{ height: '500px' }} src={`../${cakeDetails?.image}`}></img>
             </div>
             <div className="font-thin italic pt-3 text-sm">
                 <p>* All cakes are vegan and gluten-free </p>
             </div>
             </div>
-            <div className="pl-10 pr-10">
+            <div className="pl-10 pr-10 pt-10">
             <ToastContainer hideProgressBar={true} position="bottom-center" toastClassName="default-toast"></ToastContainer>
       
                 <form>
@@ -118,15 +118,15 @@ function CakeDetails(){
                 <label className="block text-gray-700 text-base font-semibold mb-2 mr-2">Add a Message 📜 : </label>
                 <input onChange={(e)=>setMessage(e.target.value)} className="shadow appearance-none border rounded w-auto py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" id="message" name="message" value={message}></input>
                 </div>
-                <div className="flex items-center pt-8">
+                <div className="flex items-center pt-10">
                 <label className="block text-gray-700 text-base font-semibold mb-2 mr-2">Select Quantity: </label>
                 <input onChange={(e)=>setQty(e.target.valueAsNumber)} className="shadow appearance-none border rounded w-auto py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="number" min="1" max="10" step="1" value={qty}></input>
                 </div>
-                <div className=" pt-8">
-                <label className="block text-gray-700 text-base font-semibold mb-4 mr-2">Choose Toppings:</label>
+                <div className=" pt-10">
+                <label className="block text-gray-700 text-base font-semibold mb-6 mr-2">Choose Toppings:</label>
                 <div className="grid grid-cols-2 gap-2">
                     {topping_list.map((topping, index) => (
-                    <div key={index} className="flex items-center">
+                    <div key={index} className="flex items-center pb-5">
                         <input
                         type="checkbox"
                         value={topping}

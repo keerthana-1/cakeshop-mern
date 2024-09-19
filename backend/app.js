@@ -56,17 +56,38 @@ const cartSchema = new mongoose.Schema({
     quantity : Number,
     message : String,
     price : Number,
-    toppings: [String]
+    toppings: [String],
+    image: String
     }],
     totalItems: Number,
     totalPrice: Number
 })
+
+const orderSchema = new mongoose.Schema({
+    username:String,
+    status: String,
+    cart_id: String,
+    order_id: String,
+    shipping_data:[{
+        name: String,
+        phone: String,
+        address: String,
+        delivery: String
+    }],
+    payment_data:[{
+        card_number: String,
+        name: String,
+        security_code: String,
+        expiry: String
+    }]
+},{ timestamps: true })
 
 const User = mongoose.model('users', userSchema);
 const Cake = mongoose.model('cakes', cakeSchema);
 const Flavor = mongoose.model('flavors', flavorSchema);
 const Category = mongoose.model('categories', categorySchema);
 const Cart = mongoose.model('carts',cartSchema);
+const Order = mongoose.model('orders',orderSchema);
 
 app.get('/',(req,res)=>{
     res.send('Welcome to the Node.js MongoDB app!');
@@ -185,10 +206,10 @@ app.get('/getCategories',async (req,res)=>{
 //---------------------------------------------------------------categories
 //---------------------------------------------------------------cart
 
-app.get('/getCartId/:username',async(req,res)=>{
+app.get('/getcart/:cart_id',async(req,res)=>{
     try{
 
-        const cart = await Cart.findOne({username:req.params.username});
+        const cart = await Cart.findOne({cartid:req.params.cart_id});
         res.json(cart)
     }
     catch(err){
@@ -201,6 +222,31 @@ app.post('/insertCart',async(req,res)=>{
         const cartData = req.body;
         const cart = await Cart.create(cartData) 
         console.log("cart created succesfully",cart)
+    }
+    catch(err){
+        console.log(err)
+    }
+})
+
+//---------------------------------------------------------------cart
+//---------------------------------------------------------------order
+
+app.post('/insertOrder',async(req,res)=>{
+    try{
+        const orderData = req.body;
+        const order = await Order.create(orderData) 
+        console.log("order created succesfully",order)
+    }
+    catch(err){
+        console.log(err)
+    }
+})
+
+app.get('/getUserOrder/:username',async(req,res)=>{
+    try{
+
+        const order = await Order.findOne({username:req.params.username}).sort({ createdAt: -1 });
+        res.json(order)
     }
     catch(err){
         console.log(err)

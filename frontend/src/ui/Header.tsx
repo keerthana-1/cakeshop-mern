@@ -73,11 +73,11 @@ function Header(){
       )}
 
           <div className="pr-8">
-            {isLogin && <p > Hello👋, {username}</p>}
+            {isLogin && <p >{username}</p>}
           </div>
           <div>
             {isLogin && (
-              <Link className="nav-item nav-link flex items-center cursor-pointer text-white" to="/cart">
+              <Link className="nav-item nav-link flex items-center cursor-pointer" to="/cart">
                 <i className="fa fa-cart-plus text-xl"></i>
                 <span className="ml-1 cart-items">{state ? state.totalItems : 0}</span>
               </Link>
@@ -90,8 +90,6 @@ function Header(){
             }`}>Login/Register</Link>}
         </div>
       </header>
-      
-      
     )
 }
 

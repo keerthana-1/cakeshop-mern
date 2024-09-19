@@ -10,7 +10,7 @@ export const CartContext = createContext<cartContextType | undefined>(undefined)
 
 
 type Action =
-    | { type: 'ADD_TO_CART'; payload: { cakeName: string; quantity: number; price: number; message: string; toppings: string[] } }
+    | { type: 'ADD_TO_CART'; payload: { cakeName: string; quantity: number; price: number; message: string; toppings: string[]; image: string } }
     | { type: 'UPDATE_CARTID'; payload: { cartid: string; username: string } }
     | { type: 'DELETE_FROM_CART'; payload:string }
     | { type: 'CLEAR_CART'; };

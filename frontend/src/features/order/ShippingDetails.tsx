@@ -11,6 +11,7 @@ function ShippingDetails(){
     const [phone,setPhone]=useState("");
     const [address,setAddress]=useState("");
     const [delivery,setDelivery]=useState("");
+    
     const OrderProviderValues = useContext(OrderContext);
     if(!OrderProviderValues){
         return
@@ -25,31 +26,32 @@ function ShippingDetails(){
     return(
         <div className="flex justify-center items-center">
         <div className="w-1/2">
-                    <h1 className="text-2xl text-center font-bold mb-6">Shipping Details</h1>
-                    <form className="space-y-4">
-                        <div className=" mb-4">
-                            <label className={labelStyle}>Name</label>
-                            <input onChange={(e)=>setName(e.target.value)} type="text" className={inputStyle} value={name} />
-                        </div>
-
-                        <div className="mb-4">
-                            <label className={labelStyle}>Phone</label>
-                            <input onChange={(e)=>setPhone(e.target.value)} type="text" className={inputStyle} value={phone} />
-                        </div>
-
-                        <div className=" mb-4">
-                            <label className={labelStyle}>Address</label>
-                            <input onChange={(e)=>setAddress(e.target.value)} type="text" className={inputStyle} value={address} />
-                        </div>
-
-                        <div className="  mb-4">
-                            <label className={labelStyle}>Delivery Date</label>
-                            <input onChange={(e)=>setDelivery(e.target.value)} type="date" className={inputStyle} value={delivery} />
-                        </div>
-                        <Button onClick={nextClick}>Next:Payment Details</Button>
-                    </form>
+            <form className="space-y-4">
+                <div className=" mb-4">
+                    <label className={labelStyle}>Name</label>
+                    <input onChange={(e)=>setName(e.target.value)} type="text" className={inputStyle} value={name} />
                 </div>
+
+                <div className="mb-4">
+                    <label className={labelStyle}>Phone</label>
+                    <input onChange={(e)=>setPhone(e.target.value)} type="text" className={inputStyle} value={phone} />
                 </div>
+
+                <div className=" mb-4">
+                    <label className={labelStyle}>Address</label>
+                    <input onChange={(e)=>setAddress(e.target.value)} type="text" className={inputStyle} value={address} />
+                </div>
+
+                <div className="  mb-4">
+                    <label className={labelStyle}>Delivery Date</label>
+                    <input onChange={(e)=>setDelivery(e.target.value)} type="date" className={inputStyle} value={delivery} />
+                </div>
+                <div className="pt-10 text-right">
+                <Button onClick={nextClick}>Next</Button>
+                </div>
+            </form>
+        </div>
+        </div>
     )
 }
 

@@ -49,6 +49,13 @@ function Filters() {
     fetchData();
   }, []);
 
+  function ClearFilters(){
+    setFlavor("")
+    setCategory("")
+    setPrice(0)
+    setOpen(false)
+  }
+
   if (loading) return <Loader></Loader>;
 
   if (!flavors || !categories) return <p>no filters</p>;
@@ -107,9 +114,18 @@ function Filters() {
           </div>
         </div>
       </ModalContent>
+      
       <ModalActions>
+      <div className="flex justify-end">
+        <div>
         <Button onClick={() => setOpen(false)}>Apply</Button>
+        </div>
+        <div className="pl-3">
+        <Button onClick={ClearFilters}>Clear</Button>
+        </div>
+        </div>
       </ModalActions>
+      
     </Modal>
   );
 }

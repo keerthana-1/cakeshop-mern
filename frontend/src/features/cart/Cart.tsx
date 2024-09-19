@@ -20,13 +20,13 @@ function Cart(){
 
 
     function handleCheckout(){
-        navigate('/cart/checkout')
+        navigate('/checkout')
     }
 
     return (
         <div className="min-h-screen flex justify-center">
              <div>
-                <button className="pt-12 text-2xl" onClick={()=>navigate(-1)}>⬅</button>
+                <button className="pt-14 text-lg text-pink-500" onClick={()=>navigate("/menu")}><span className="text-xl">&#8249;</span>Back</button>
             </div>
             <div className="w-1/2  text-center">
              <div className="pt-14">
@@ -36,8 +36,8 @@ function Cart(){
             {state && state.cartItems.map((cartitem:cartItemType,index:number)=>(<CartItem data={cartitem} key={index}></CartItem>))}
             </div>
             <div className="pt-10 flex items-center justify-between">
-                <p className="pl-10 font-semibold">Total Quantity: {state?.totalItems}</p>
-                <p className="pr-10 font-semibold">Order Total: ${state?.totalPrice.toFixed(2)}</p>
+                <p className="pl-10 font-semibold text-lg">Total Quantity: {state?.totalItems}</p>
+                <p className="pr-10 font-semibold text-lg">Sub Total: ${state?.totalPrice.toFixed(2)}</p>
             </div>
             <div className="pt-10">
                 

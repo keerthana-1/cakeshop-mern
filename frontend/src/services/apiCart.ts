@@ -5,6 +5,8 @@ export interface cartItemType{
     quantity : number;
     message : string;
     price : number;
+    toppings: string[];
+    image: string;
 }
 
 export interface cartType{
@@ -15,13 +17,12 @@ export interface cartType{
     totalPrice : number; 
 }
 
-export async function getCartId(username:string):Promise<cartType[]>{
-    const res = await fetch(`${API_URL}/getCartId/${username}`)
+export async function getCart(cart_id:string):Promise<cartType>{
+    const res = await fetch(`${API_URL}/getcart/${cart_id}`)
     if(!res.ok) throw Error("couldn't find cart")
     const data = await res.json();
     console.log(data)
     return data;
-
 }
 
 export async function insertCart(cart:cartType){
