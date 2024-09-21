@@ -33,7 +33,7 @@ export const OrderContext = createContext<orderContextType | undefined>(undefine
 
 type Action =
     | { type: 'UPDATE_SHIPPING'; payload: { name: string; phone: string; address: string; delivery: string; is_shipping:boolean } }
-    | { type: 'UPDATE_PAYMENT'; payload: { card_number: string; name: string, security_code:string, expiry: string } }
+    | { type: 'UPDATE_PAYMENT'; payload: { card_number: string; name: string, security_code:string, expiry: string; is_shipping:boolean } }
     | {type:'SET_SHIPPING'; payload:boolean}
 
 
@@ -65,6 +65,7 @@ const orderReducer = (state: orderState, action: Action): orderState => {
                                        security_code:action.payload.security_code,
                                        expiry:action.payload.expiry
                                         },   
+                    is_shipping: action.payload.is_shipping
              };
         case 'SET_SHIPPING':
             return{

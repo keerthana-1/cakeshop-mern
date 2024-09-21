@@ -141,6 +141,22 @@ app.post('/updatePassword/:email', async(req,res)=>{
     }
 })
 
+app.put('/updateUser/:email', async(req,res)=>{
+    try{
+        const  { password: newPassword, address:newAddress, phone: newPhone, name: newName }  = req.body;
+        console.log(newPassword)
+        const user=await User.findOneAndUpdate(
+        { email: req.params.email },      
+        { password: newPassword, address:newAddress, phone: newPhone, name: newName },       
+        { new: true, runValidators: true })
+
+      res.json({ message: 'User updated successfully', user });
+    }
+    catch(err){
+        console.error(err)
+    }
+})
+
 app.post('/createUser', async(req,res)=>{
     try{
         const userdata = req.body;
@@ -246,6 +262,17 @@ app.get('/getUserOrder/:username',async(req,res)=>{
     try{
 
         const order = await Order.findOne({username:req.params.username}).sort({ createdAt: -1 });
+        res.json(order)
+    }
+    catch(err){
+        console.log(err)
+    }
+})
+
+app.get('/getAllUserOrders/:username',async(req,res)=>{
+    try{
+
+        const order = await Order.find({username:req.params.username}).sort({ createdAt: -1 });
         res.json(order)
     }
     catch(err){

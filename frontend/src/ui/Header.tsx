@@ -3,6 +3,7 @@ import { useContext, useState } from "react";
 import { LoginContext } from "./LoginContext";
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import {CartContext} from "./CartContext";
+import UserProfile from "./UserProfile";
 
 
 function Header(){
@@ -21,7 +22,7 @@ function Header(){
     if(!LoginProviderValues || !CartProviderValues){
         return null
     }
-    const {username,isLogin} = LoginProviderValues;
+    const {isLogin} = LoginProviderValues;
 
     const {state} = CartProviderValues;
 
@@ -72,10 +73,8 @@ function Header(){
         </nav>
       )}
 
+         
           <div className="pr-8">
-            {isLogin && <p >{username}</p>}
-          </div>
-          <div>
             {isLogin && (
               <Link className="nav-item nav-link flex items-center cursor-pointer" to="/cart">
                 <i className="fa fa-cart-plus text-xl"></i>
@@ -83,11 +82,20 @@ function Header(){
               </Link>
             )}
           </div>
+
+          {isLogin &&   
+          
+          <div className=" pl-8 pr-12 text-3xl">
+            <UserProfile></UserProfile>        
+          </div>
+          
+          }
+        
         
           {!isLogin && <Link to="/login" onClick={() => handleTabClick('login')}
             className={`text-lg cursor-pointer ${
               activeTab === 'login' ? 'underline' : ''
-            }`}>Login/Register</Link>}
+            }`}>Login</Link>}
         </div>
       </header>
     )

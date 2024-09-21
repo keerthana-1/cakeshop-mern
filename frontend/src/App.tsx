@@ -12,6 +12,8 @@ import Cart from "./features/cart/Cart";
 import '@fontsource/poppins'; 
 import 'semantic-ui-css/semantic.min.css';
 import OrderDetails from "./features/order/OrderDetails";
+import UpdateProfile from "./features/user/UpdateProfile";
+import Orders from "./features/order/Orders";
 
 
 const router=createBrowserRouter([
@@ -55,6 +57,14 @@ const router=createBrowserRouter([
   {
     path:'/orderdetails',
     element:<OrderDetails></OrderDetails>
+  },
+  {
+    path:'/updateprofile',
+    element:<UpdateProfile></UpdateProfile>
+  },
+  {
+    path:'/orders',
+    element:<Orders></Orders>
   }
   ] 
 }])

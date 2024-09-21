@@ -5,6 +5,7 @@ import FilterProvider from "./FilterContext";
 import CartProvider from "./CartContext";
 import OrderProvider from "./OrderContext";
 
+
 function AppLayout() {
   return (
     <LoginProvider>
@@ -20,8 +21,12 @@ function AppLayout() {
                 <main>
                   <Outlet />
                 </main>
+                
+                
               </div>
+
             </div>
+           
           </OrderProvider>
         </CartProvider>
       </FilterProvider>

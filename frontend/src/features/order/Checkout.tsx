@@ -32,8 +32,6 @@ function Checkout(){
             totalPrice:state.totalPrice
         }
         insertCart(cart)
-        
-        alert("order placed")
         dispatch({"type":"CLEAR_CART"})
     }
     catch(err){

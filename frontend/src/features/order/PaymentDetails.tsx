@@ -17,10 +17,6 @@ function PaymentDetails({handleClick,handleBackClick}: PaymentDetailsProps){
     const inputStyle="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
     const labelStyle="block text-gray-700 text-sm font-bold mb-2 text-left"
 
-    const [cardNumber,setCardNumber]=useState("")
-    const [name,setName]=useState("")
-    const [security,setSecurity]=useState("")
-    const [expiry,setExpiry]=useState("")
     const navigate = useNavigate();
 
     const OrderProviderValues = useContext(OrderContext);
@@ -34,9 +30,14 @@ function PaymentDetails({handleClick,handleBackClick}: PaymentDetailsProps){
     const {state:cart_state}=CartProviderValues;
     const {username}=LoginProviderValues;
 
+    const [cardNumber,setCardNumber]=useState(state.payment_details.card_number)
+    const [name,setName]=useState(state.payment_details.name)
+    const [security,setSecurity]=useState(state.payment_details.security_code)
+    const [expiry,setExpiry]=useState(state.payment_details.expiry)
+
     function handleOrder(e:FormEvent){
         e.preventDefault()
-        dispatch({"type":"UPDATE_PAYMENT","payload":{"card_number":cardNumber,"expiry":expiry,"name":name,"security_code":security}})
+        dispatch({"type":"UPDATE_PAYMENT","payload":{"card_number":cardNumber,"expiry":expiry,"name":name,"security_code":security,is_shipping: true}})
         handleClick()
         const now=new Date()
         const order_id= `${now.getFullYear()}${String(now.getMonth() + 1).padStart(2, '0')}${String(now.getDate()).padStart(2, '0')}${String(now.getHours()).padStart(2, '0')}${String(now.getMinutes()).padStart(2, '0')}${String(now.getSeconds()).padStart(2, '0')}${String(now.getMilliseconds()).padStart(3, '0')}`

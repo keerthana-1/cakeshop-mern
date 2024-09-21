@@ -59,3 +59,25 @@ export async function createUser(user:userType){
         throw Error('Failed creating user');
       }
 }
+
+export async function updateUser(username: string, updatedDetails: { password?: string; address?: string; phone?: string; name?: string; }) {
+  try {
+    const res = await fetch(`${API_URL}/updateUser/${username}`, {
+      method: 'PUT', 
+      body: JSON.stringify(updatedDetails),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (!res.ok) {
+      const errorMessage = `Failed to update user details: ${res.statusText}`;
+      throw new Error(errorMessage);
+    }
+
+    const { data } = await res.json();
+    return data;
+  } catch (error) {
+    throw new Error(error instanceof Error ? error.message : 'Error updating user details');
+  }
+}

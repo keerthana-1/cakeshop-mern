@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { cartItemType } from "../../services/apiCart";
 import {CartContext} from "../../ui/CartContext";
+import { Popup } from 'semantic-ui-react'
 
 function CartItem({data}:{data:cartItemType} ){
 
@@ -26,6 +27,9 @@ function CartItem({data}:{data:cartItemType} ){
 
    function handleDelete(){
     dispatch({"type":"DELETE_FROM_CART","payload":data.cakeName})
+    if(state.totalPrice===0){
+        dispatch({"type":"CLEAR_CART"})
+    }
    }
 
     return (
@@ -45,7 +49,8 @@ function CartItem({data}:{data:cartItemType} ){
                     
                      <button className="pr-4" onClick={handleDecrement}>-</button><p className="pr-4">{existingCartItem?.quantity}</p><button onClick={handleIncrement}>+</button>
                 </div>
-                <button className="pr-4" onClick={handleDelete}>❌</button>
+                <Popup content='Delete Item' position="top center" trigger={ <button className="pr-4" onClick={handleDelete}>❌</button>} />
+               
             </div>
         </div>
     )

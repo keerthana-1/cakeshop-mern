@@ -56,8 +56,8 @@ function Home() {
         <Reviews></Reviews>
       </div>
 
-      <div className="pt-10">
-        <Footer></Footer>
+      <div className="pt-8">
+        <Footer/>
       </div>
     </div>
   );

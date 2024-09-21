@@ -53,7 +53,7 @@ const cartReducer = (state: cartType, action: Action): cartType => {
                     ...state,
                     cartItems: [...state.cartItems, action.payload],
                     totalItems: state.totalItems + action.payload.quantity,
-                    totalPrice: state.totalPrice + action.payload.price,
+                    totalPrice: state.totalPrice + action.payload.quantity * action.payload.price,
                 };
             }
         }
@@ -98,6 +98,9 @@ const cartReducer = (state: cartType, action: Action): cartType => {
             return state;
     }
 };
+
+
+
 
 export default function CartProvider({ children }: { children: React.ReactNode }) {
 

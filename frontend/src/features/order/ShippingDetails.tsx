@@ -7,16 +7,17 @@ function ShippingDetails(){
 
     const inputStyle="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
     const labelStyle="block text-gray-700 text-sm font-bold mb-2 text-left"
-    const [name,setName]=useState("");
-    const [phone,setPhone]=useState("");
-    const [address,setAddress]=useState("");
-    const [delivery,setDelivery]=useState("");
-    
+   
     const OrderProviderValues = useContext(OrderContext);
     if(!OrderProviderValues){
         return
     }
-    const {dispatch}=OrderProviderValues;
+    const {state,dispatch}=OrderProviderValues;
+    const [name,setName]=useState(state.shipping_details.name);
+    const [phone,setPhone]=useState(state.shipping_details.phone);
+    const [address,setAddress]=useState(state.shipping_details.address);
+    const [delivery,setDelivery]=useState(state.shipping_details.delivery);
+    
 
     function nextClick(e:FormEvent){
         e.preventDefault()

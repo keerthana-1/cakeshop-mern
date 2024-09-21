@@ -42,3 +42,16 @@ export async function getUserOrder(username:string){
         throw Error('Failed fetching order');
     }
 }
+
+export async function getAllUserOrders(username:string){
+  try{
+      const res = await fetch(`${API_URL}/getAllUserOrders/${username}`)
+      if(!res.ok) throw Error("couldn't find orders")
+      const data = await res.json();
+      console.log(data)
+      return data;
+  }
+  catch{
+      throw Error('Failed fetching order');
+  }
+}
