@@ -1,3 +1,5 @@
+import { GroupedCakes } from "../features/admin/CakeFlavorChart";
+
 const API_URL="http://localhost:3000"
 
 export interface cakeType{
@@ -53,4 +55,20 @@ export async function getCategories(){
   return data;
 }
 
-  
+
+export async function getCakesGroupedByFlavor(): Promise<GroupedCakes[]>{
+  const res = await fetch(`${API_URL}/getCakesGroupedByFlavor`)
+  if(!res.ok) throw Error("couldn't find flavors")
+  const data = await res.json();
+  console.log(data)
+  return data;
+}
+
+export async function getCakesGroupedByCategory(){
+  const res = await fetch(`${API_URL}/getCakesGroupedByCategory`)
+  if(!res.ok) throw Error("couldn't find categories")
+  const data = await res.json();
+  console.log(data)
+  return data;
+}
+

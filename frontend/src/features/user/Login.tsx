@@ -6,27 +6,6 @@ import { getPassword } from "../../services/apiUsers";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-
-// type Action=
-// |{type:'updateUsername',value:string}
-// |{type:'updatePassword',value:string}
-
-// function userReducer(state:userState,action:Action){
-//   switch(action.type){
-//     case 'updateUsername':
-//       return {...state,username:action.value}
-//     case 'updatePassword':
-//       return {...state,username:action.value}
-//     default:
-//       return state
-//   }
-// }
-
-// interface userState{
-//   username:string;
-//   password:string;
-// }
-
 function Login(){
 
   const navigate=useNavigate();
@@ -38,13 +17,17 @@ function Login(){
     return null; // Handles the case where context is not provided
   }
 
-  const { username, setUsername, password, setPassword,setIsLogin } = LoginProviderValues;
+  const { username, setUsername, password, setPassword,setIsLogin, setIsAdmin } = LoginProviderValues;
 
   async function handleLogin(e:FormEvent){
    e.preventDefault()
-   console.log(username)
    const data=await getPassword(username);
-   if(data.toString() === password){
+   
+    if(username==="admin@gmail.com" && password==="password"){
+      setIsAdmin(true);
+      navigate('/adminhome');
+    }
+    else if(data.toString() === password){
       setIsLogin(true);
       navigate('/menu');
     }

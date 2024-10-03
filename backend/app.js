@@ -95,7 +95,7 @@ app.get('/',(req,res)=>{
 
 //---------------------------------------------------------------users
 
-app.get('/getUsers',async (req,res)=>{
+app.get('/getAllUsers',async (req,res)=>{
     try{
         const users= await User.find();
         res.json(users);
@@ -279,3 +279,110 @@ app.get('/getAllUserOrders/:username',async(req,res)=>{
         console.log(err)
     }
 })
+
+app.get('/getAllOrders/',async(req,res)=>{
+    try{
+
+        const order = await Order.find().sort({ createdAt: -1 });
+        res.json(order)
+    }
+    catch(err){
+        console.log(err)
+    }
+})
+
+app.post('/updateStatus/:order_id', async(req,res)=>{
+  
+    try{
+        const  { status: newStatus }  = req.body;
+        const order=await Order.findOneAndUpdate(
+        { order_id: req.params.order_id },      
+        { status: newStatus },       
+        { new: true, runValidators: true })
+
+      res.json({ message: 'Status updated successfully', order });
+    }
+    catch(err){
+        console.error(err)
+    }
+})
+//---------------------------------------------------------------order
+//---------------------------------------------------------------Top 5 users
+app.get('/topUsers', async (req, res) => {
+    try {
+      const topUsers = await Order.aggregate([
+        {
+          $group: {
+            _id: "$username",
+            totalOrders: { $sum: 1 }
+          }
+        },
+        {
+          $sort: { totalOrders: -1 }
+        },
+        {
+          $limit: 5
+        }
+      ]);
+  
+      res.json(topUsers);
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ message: "Error fetching top users" });
+    }
+  });
+  
+  //---------------------------------------------------------------Top 5 users
+  //---------------------------------------------------------------Cakes in each flavor
+
+  app.get('/getCakesGroupedByFlavor', async (req, res) => {
+    try {
+        const flavorsWithCount = await Cake.aggregate([
+            {
+                $group: {
+                    _id: "$flavor",
+                    totalCakes: { $sum: 1 }
+                }
+            },
+            {
+                $project: {
+                    flavor: "$_id",
+                    totalCakes: 1,
+                    _id: 0
+                }
+            }
+        ]);
+
+        res.json(flavorsWithCount);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Error retrieving cake counts by flavor' });
+    }
+});
+ //---------------------------------------------------------------Cakes in each flavor
+ //---------------------------------------------------------------Cakes in each category
+
+ app.get('/getCakesGroupedByCategory', async (req, res) => {
+    try {
+        const categoriesWithCount = await Cake.aggregate([
+            {
+                $group: {
+                    _id: "$category",
+                    totalCakes: { $sum: 1 }
+                }
+            },
+            {
+                $project: {
+                    category: "$_id",
+                    totalCakes: 1,
+                    _id: 0
+                }
+            }
+        ]);
+
+        res.json(categoriesWithCount);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Error retrieving cake counts by flavor' });
+    }
+});

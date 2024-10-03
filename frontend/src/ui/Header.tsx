@@ -22,7 +22,7 @@ function Header(){
     if(!LoginProviderValues || !CartProviderValues){
         return null
     }
-    const {isLogin} = LoginProviderValues;
+    const {isLogin,isAdmin} = LoginProviderValues;
 
     const {state} = CartProviderValues;
 
@@ -41,7 +41,7 @@ function Header(){
         {/* User section */}
         <div className="flex items-center mr-10">
 
-        {!isLogin && (
+        {(!isLogin && !isAdmin ) && (
         <nav className="flex items-center mr-auto ml-10 space-x-8">
           <a
             href="/#home"
@@ -83,7 +83,7 @@ function Header(){
             )}
           </div>
 
-          {isLogin &&   
+          {(isLogin || isAdmin) &&   
           
           <div className=" pl-8 pr-12 text-3xl">
             <UserProfile></UserProfile>        
@@ -92,7 +92,7 @@ function Header(){
           }
         
         
-          {!isLogin && <Link to="/login" onClick={() => handleTabClick('login')}
+          {(!isLogin && !isAdmin )  && <Link to="/login" onClick={() => handleTabClick('login')}
             className={`text-lg cursor-pointer ${
               activeTab === 'login' ? 'underline' : ''
             }`}>Login</Link>}

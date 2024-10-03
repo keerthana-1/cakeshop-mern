@@ -14,6 +14,9 @@ import 'semantic-ui-css/semantic.min.css';
 import OrderDetails from "./features/order/OrderDetails";
 import UpdateProfile from "./features/user/UpdateProfile";
 import Orders from "./features/order/Orders";
+import AdminHome from "./features/admin/AdminHome";
+import ViewUsers from "./features/admin/ViewUsers";
+import ListOrders from "./features/admin/ListOrders";
 
 
 const router=createBrowserRouter([
@@ -65,6 +68,18 @@ const router=createBrowserRouter([
   {
     path:'/orders',
     element:<Orders></Orders>
+  },
+  {
+    path:'/adminhome',
+    element:<AdminHome></AdminHome>
+  },
+  {
+    path:'/viewusers',
+    element:<ViewUsers></ViewUsers>
+  },
+  {
+    path:'/listorders',
+    element:<ListOrders></ListOrders>
   }
   ] 
 }])

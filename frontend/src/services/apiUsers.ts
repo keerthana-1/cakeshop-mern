@@ -16,6 +16,14 @@ export async function getUser(username:string){
   return data;
 }
 
+export async function getAllUsers(){
+  const res = await fetch(`${API_URL}/getAllUsers`)
+  if(!res.ok) throw Error("couldn't find users")
+  const data = await res.json();
+  console.log(data)
+  return data;
+}
+
 export async function getPassword(username:string){
     const res = await fetch(`${API_URL}/getPassword/${username}`)
     if(!res.ok) throw Error("couldn't find user")
@@ -80,4 +88,13 @@ export async function updateUser(username: string, updatedDetails: { password?: 
   } catch (error) {
     throw new Error(error instanceof Error ? error.message : 'Error updating user details');
   }
+}
+
+
+export async function getTopUsers(){
+  const res = await fetch(`${API_URL}/topUsers`)
+  if(!res.ok) throw Error("couldn't find user")
+  const data = await res.json();
+  console.log(data)
+  return data;
 }

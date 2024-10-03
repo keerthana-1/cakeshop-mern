@@ -8,6 +8,8 @@ interface loginContextType{
     setPassword:React.Dispatch<React.SetStateAction<string>>;
     isLogin:boolean;
     setIsLogin:React.Dispatch<React.SetStateAction<boolean>>;
+    isAdmin:boolean;
+    setIsAdmin:React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const  LoginContext= createContext<loginContextType|undefined>(undefined)
@@ -17,8 +19,9 @@ export default function LoginProvider({children}:{children:React.ReactNode}){
     const [username,setUsername]=useState("");
     const [password,setPassword]=useState("");
     const [isLogin,setIsLogin]=useState(false);
+    const [isAdmin,setIsAdmin]=useState(false);
     return(
-        <LoginContext.Provider value={{username,setUsername,password,setPassword,isLogin,setIsLogin}}>
+        <LoginContext.Provider value={{username,setUsername,password,setPassword,isLogin,setIsLogin,isAdmin,setIsAdmin}}>
             {children}
         </LoginContext.Provider>
     )

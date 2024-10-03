@@ -73,7 +73,7 @@ function UpdateProfile(){
 
     <div className="mt-10 ml-48 mr-48">
         <div className="pb-7">
-            <button className="pt-14 text-lg text-pink-500" onClick={()=>navigate("/menu")}><span className="text-xl">&#8249;</span>Back</button>
+            <button className="pt-14 text-lg text-pink-500" onClick={()=>navigate(-1)}><span className="text-xl">&#8249;</span>Back</button>
         </div>
         <div className="p-10 bg-white shadow-md h-auto">
         <ToastContainer hideProgressBar={true} position="bottom-center" toastClassName="default-toast"></ToastContainer>
