@@ -68,6 +68,32 @@ export async function createUser(user:userType){
       }
 }
 
+export async function createGoogleUser(user:{email:string,name:string}| undefined){
+  try {
+
+      const googleUser={
+        email:user?.email,
+        password:"",
+        name:user?.name,
+        address:"",
+        phone:"",
+      }
+      const res = await fetch(`${API_URL}/createUser`, {
+        method: 'POST',
+        body: JSON.stringify(googleUser),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+  
+      if (!res.ok) throw Error();
+      const { data } = await res.json();
+      return data;
+    } catch {
+      throw Error('Failed creating user');
+    }
+}
+
 export async function updateUser(username: string, updatedDetails: { password?: string; address?: string; phone?: string; name?: string; }) {
   try {
     const res = await fetch(`${API_URL}/updateUser/${username}`, {

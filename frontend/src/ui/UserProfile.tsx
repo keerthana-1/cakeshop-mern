@@ -17,7 +17,7 @@ function UserProfile(){
         return null
     }
 
-    const {isLogin,setIsLogin,username,isAdmin} = LoginProviderValues;
+    const {isLogin,setIsLogin,username,isAdmin,isGoogleLogin,setIsGoogleLogin} = LoginProviderValues;
     const [user,setUser] = useState<userType|null>(null);
 
     useEffect(()=>{
@@ -34,7 +34,7 @@ function UserProfile(){
             
         }
         fetchData()
-    },[])
+    },[username])
 
     function handleProfileClick(){
         navigate("./updateprofile")
@@ -46,11 +46,12 @@ function UserProfile(){
 
     function handleLogout(){
         setIsLogin(false);
+        setIsGoogleLogin(false);
         navigate("/")
     }
 
     const options = [
-        { key: 'name', text: `Hello, ${user?.name}` },
+        { key: 'name', text: `Hello, ${user?.name}`, className:'break-words'},
         { key: 'profile', text: 'Profile', onClick: handleProfileClick },
         { key: 'my-orders', text: 'Orders', onClick: handleOrdersClick },
         { key: 'help', text: 'Help'},
@@ -65,7 +66,7 @@ function UserProfile(){
 
     return(
         <div>
-        {isLogin && <div>
+        {(isLogin || isGoogleLogin) && <div>
             <Dropdown trigger={trigger} options={options}/>
             </div>
         }

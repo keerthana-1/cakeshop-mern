@@ -17,6 +17,9 @@ import Orders from "./features/order/Orders";
 import AdminHome from "./features/admin/AdminHome";
 import ViewUsers from "./features/admin/ViewUsers";
 import ListOrders from "./features/admin/ListOrders";
+import AddCake from "./features/admin/AddCake";
+import ManageCakes from "./features/admin/ManageCakes";
+import UpdateCake from "./features/admin/UpdateCake";
 
 
 const router=createBrowserRouter([
@@ -80,6 +83,18 @@ const router=createBrowserRouter([
   {
     path:'/listorders',
     element:<ListOrders></ListOrders>
+  },
+  {
+    path:'/addcake',
+    element:<AddCake></AddCake>
+  },
+  {
+    path:'/managecakes',
+    element:<ManageCakes></ManageCakes>
+  },
+  {
+    path: '/updatecake/:cake',
+    element: <UpdateCake></UpdateCake>
   }
   ] 
 }])

@@ -27,7 +27,7 @@ function Reviews() {
   const itemsPerPage = 1; // Show 1 review at a time
   const maxIndex = Math.ceil(reviews.length / itemsPerPage) - 1;
 
-  // Automatically slide to the next review every 3 seconds
+  // Automatically slide to the next review every 5 seconds
   useEffect(() => {
     const interval = setInterval(() => {
       setActiveIndex((prevIndex) =>
@@ -39,40 +39,34 @@ function Reviews() {
   }, [maxIndex]);
 
   return (
-    <div className="relative overflow-hidden flex justify-center items-center h-96">
-      
+    <div className="relative overflow-hidden flex justify-center items-center h-96 px-4 sm:px-8 md:px-10 lg:px-14">
       {/* Reviews Wrapper */}
       <div
         className="flex ease-in-out"
         style={{
           transform: `translateX(-${activeIndex * 100}%)`,
           width: `${reviews.length * 100}%`,
-          transition: 'transform 2s ease-in-out'
+          transition: "transform 1s ease-in-out",
         }}
       >
-       
         {reviews.map((review, i) => (
-          <div key={i} className="flex-none w-full px-60 flex justify-center">
-            <div className="bg-white shadow-lg rounded-lg overflow-hidden w-2/3">
-              {/* Image Section */}
-              <div className="flex pl-20 rounded-full pt-5 pb-5">
-                <div className="w-1/3">
+          <div key={i} className="flex-none w-full flex justify-center px-4 sm:px-10">
+            <div className="bg-white shadow-lg rounded-lg overflow-hidden w-full sm:w-3/4 lg:w-2/3">
+              {/* Image and Review Content */}
+              <div className="flex flex-col sm:flex-row items-center sm:items-start p-5 sm:p-10">
+                <div className="sm:w-1/3 mb-4 sm:mb-0">
                   <img
                     src={review.image}
                     alt={review.name}
-                    className="w-64 h-64 object-cover rounded-full"
+                    className="w-40 h-40 sm:w-64 sm:h-64 object-cover rounded-full mx-auto sm:mx-0"
                   />
                 </div>
-                {/* Review Content */}
-                <div className="w-2/3 pt-14">
+                <div className="sm:w-2/3 text-center sm:text-left">
                   <h3 className="text-lg text-pink-500 font-bold mb-2">{review.name}</h3>
-                  <div className="flex items-center mb-4">
+                  <div className="flex justify-center sm:justify-start items-center mb-4">
                     <span className="text-pink-300 text-xl mr-2">
                       {"★".repeat(parseInt(review.rating))}
                     </span>
-                    {/* <span className="text-gray-600">
-                      {review.rating} stars
-                    </span> */}
                   </div>
                   <p className="text-pink-500">{review.review}</p>
                 </div>
@@ -82,7 +76,7 @@ function Reviews() {
         ))}
       </div>
 
-      {/* Dots for navigation */}
+      {/* Dots for Navigation */}
       <div className="absolute bottom-4 left-2/4 z-50 flex -translate-x-2/4 gap-2">
         {new Array(maxIndex + 1).fill("").map((_, i) => (
           <span

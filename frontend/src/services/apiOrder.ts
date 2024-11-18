@@ -88,3 +88,10 @@ export async function updateStatus(order_id:string,status:string){
       throw Error('Failed updating password');
     }
 }
+
+export async function getOrderStatistics() {
+  const res = await fetch("http://localhost:3000/orderStatistics");
+  if (!res.ok) throw new Error("Failed to fetch order statistics");
+  return res.json();
+}
+

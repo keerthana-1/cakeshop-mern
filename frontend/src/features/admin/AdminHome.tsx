@@ -3,6 +3,7 @@ import Button from "../../ui/Button";
 import CakeFlavorChart from "./CakeFlavorChart";
 import CakeTypeChart from "./CakeTypeChart";
 import UserStatistics from "./UserStatistics";
+import OrderStatistics from "./OrderStatistics";
 
 function AdminHome(){
 
@@ -20,7 +21,7 @@ function AdminHome(){
 
                  {/* Update Order Status */}
                  <div className="bg-white rounded-lg p-6 h-auto">
-                    <h3 className="text-xl font-semibold mb-4">Update Order Status</h3>
+                    <h3 className="text-xl font-semibold mb-14">Update Order Status</h3>
                     <Button onClick={()=>navigate("/listorders")}>Update Order Status</Button>
                 
                 </div>
@@ -29,8 +30,8 @@ function AdminHome(){
                 <div className="bg-white rounded-lg p-6 h-auto">
                 <h3 className="text-xl font-semibold mb-4">Manage Cake Availability</h3>
                   <div className="flex gap-10">
-                    <Button>Add Cake</Button>
-                    <Button>View/Update Cake Availability</Button>
+                    <Button onClick={()=>navigate("/addcake")}>Add Cake</Button>
+                    <Button onClick={()=>navigate("/managecakes")}>View/Update Cake Availability</Button>
                   </div>
                   <div className="flex gap-3 pt-3">
                     <CakeFlavorChart></CakeFlavorChart>
@@ -40,11 +41,7 @@ function AdminHome(){
 
                 {/* Order Statistics */}
                 <div className="bg-white rounded-lg p-6 h-auto">
-                    <h3 className="text-xl font-semibold mb-4">Order Statistics</h3>
-                    <p className="text-4xl font-bold mb-2">50</p>
-                    <p className="text-gray-500 mb-4">Orders in Progress</p>
-                    <p className="text-4xl font-bold mb-2">200</p>
-                    <p className="text-gray-500">Orders Completed</p>
+                   <OrderStatistics></OrderStatistics>
                 </div>
 
                

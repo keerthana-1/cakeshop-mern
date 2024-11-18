@@ -1,16 +1,17 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const multer = require("multer");
+const fs = require("fs");
+const path = require("path");
 
 const { connectToDb, getDb } = require('./db');
-
-
 
 const app = express();
 const port = 3000;
 
 const cors = require('cors');
 app.use(cors({
-    origin: 'http://localhost:5173',  // Your React development server
+    origin: 'http://localhost:5173', 
   }));
 
 app.use(express.json());
@@ -174,6 +175,8 @@ app.post('/createUser', async(req,res)=>{
 
 //---------------------------------------------------------------cakes
 
+app.use("/images", express.static(path.join(__dirname, "public/images")));
+
 app.get('/getCakes',async (req,res)=>{
     try{
         const cakes= await Cake.find();
@@ -193,6 +196,77 @@ app.get('/getCake/:name',async (req,res)=>{
         console.error(err);
     }
 })
+
+app.get('/deleteCake/:name',async (req,res)=>{
+    try{
+        const cakes= await Cake.deleteOne({name:req.params.name});
+        res.json(cakes);
+    }
+    catch(err){
+        console.error(err);
+    }
+})
+
+
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        const dir = path.join(__dirname, "public/images");
+        if (!fs.existsSync(dir)) {
+            fs.mkdirSync(dir, { recursive: true });
+        }
+        cb(null, dir);
+    },
+    filename: (req, file, cb) => {
+        cb(null, `${file.originalname}`);
+    },
+});
+
+const upload = multer({ storage });
+
+app.post('/createCake', upload.single("image"), async(req,res)=>{
+    try{
+        const {name,description,flavor,category,price} = req.body;
+        console.log(req.file)
+        console.log(req.body)
+        const imageName = req.file.filename;
+
+        const newCake = {
+            name,
+            description,
+            flavor,
+            category,
+            price,
+            image: imageName,
+          };
+
+        //console.log(newPassword)
+        const cake=await Cake.create(newCake)
+
+      res.json({ message: 'cake created successfully', cake });
+    }
+    catch(err){
+        console.error(err)
+    }
+})
+
+
+app.put("/updateCake", async (req, res) => {
+    try {
+      const { name, description, category, flavor, price, image } = req.body;
+      const cake = await Cake.findOneAndUpdate(
+        { name },
+        { description, category, flavor, price, image },
+        { new: true }
+      );
+      if (!cake) return res.status(404).json({ error: "Cake not found" });
+      res.status(200).json({ message: "Cake updated successfully", cake });
+    } catch (err) {
+      console.error("Error updating cake:", err);
+      res.status(500).json({ error: "Failed to update cake" });
+    }
+  });
+
+  
 
 //---------------------------------------------------------------cakes
 //---------------------------------------------------------------flavors
@@ -386,3 +460,57 @@ app.get('/topUsers', async (req, res) => {
         res.status(500).json({ message: 'Error retrieving cake counts by flavor' });
     }
 });
+
+
+app.get("/orderStatistics", async (req, res) => {
+    try {
+      // 1. Total Orders
+      const totalOrders = await Order.countDocuments();
+  
+      // 2. Total Revenue (Sum of all `totalPrice` in `cartSchema`)
+      const totalRevenue = await Cart.aggregate([
+        { $group: { _id: null, revenue: { $sum: "$totalPrice" } } },
+      ]);
+  
+      // 3. Most Ordered Cake
+      const mostOrderedCake = await Order.aggregate([
+        { $lookup: { from: "carts", localField: "cart_id", foreignField: "cartid", as: "cartDetails" } },
+        { $unwind: "$cartDetails" },
+        { $unwind: "$cartDetails.cartItems" },
+        { $group: { _id: "$cartDetails.cartItems.cakeName", totalOrdered: { $sum: "$cartDetails.cartItems.quantity" } } },
+        { $sort: { totalOrdered: -1 } },
+        { $limit: 1 },
+      ]);
+  
+      // 4. Orders Today
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      const ordersToday = await Order.countDocuments({
+        createdAt: { $gte: today },
+      });
+  
+      // 5. Peak Ordering Time
+      const peakOrderingTime = await Order.aggregate([
+        { $group: { _id: { $hour: "$createdAt" }, count: { $sum: 1 } } },
+        { $sort: { count: -1 } },
+        { $limit: 1 },
+      ]);
+  
+      // 6. Unique Customers
+      const uniqueCustomers = await Order.distinct("username");
+  
+      res.status(200).json({
+        totalOrders,
+        totalRevenue: totalRevenue[0]?.revenue || 0,
+        mostOrderedCake: mostOrderedCake[0]?._id || "N/A",
+        ordersToday,
+        peakOrderingTime: peakOrderingTime[0]?._id || "N/A",
+        uniqueCustomers: uniqueCustomers.length,
+      });
+    } catch (err) {
+      console.error("Error fetching order statistics:", err);
+      res.status(500).json({ error: "Failed to fetch order statistics" });
+    }
+  });
+  
+
