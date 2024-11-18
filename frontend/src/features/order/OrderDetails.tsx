@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 function OrderDetails() {
   const LoginProviderValues = useContext(LoginContext);
-  const [orderLoading, setOrderLoading] = useState(true); 
+  const [orderLoading, setOrderLoading] = useState(true);
   const [cartLoading, setCartLoading] = useState(true);
   const [order, setOrder] = useState<orderType | null>(null);
   const [cart, setCart] = useState<cartType | null>(null);
@@ -22,14 +22,12 @@ function OrderDetails() {
   useEffect(() => {
     async function fetchOrder() {
       try {
-        console.log("Fetching order for:", username);
         const data = await getUserOrder(username);
-        console.log("Order data fetched:", data);
         setOrder(data);
       } catch (err) {
         console.error("Error fetching order:", err);
       } finally {
-        setOrderLoading(false); 
+        setOrderLoading(false);
       }
     }
     fetchOrder();
@@ -39,62 +37,75 @@ function OrderDetails() {
     async function fetchCart() {
       try {
         if (order) {
-          console.log("Fetching cart for order:", order.cart_id);
           const cartData = await getCart(order.cart_id);
-          console.log("Cart data fetched:", cartData);
           setCart(cartData);
         }
       } catch (err) {
         console.error("Error fetching cart:", err);
       } finally {
-        setCartLoading(false); 
+        setCartLoading(false);
       }
     }
     if (order) fetchCart();
   }, [order]);
 
-  
   if (orderLoading || cartLoading) return <Loader />;
 
-  
   if (!order || !cart) {
     return (
-      <div className="m-32">
+      <div className="m-4 sm:m-8 lg:m-16">
         <p>No order or cart data available.</p>
       </div>
     );
   }
 
   return (
-    <div className="m-32">
+    <div className="m-4 sm:m-8 lg:m-16">
       <div className="pb-7">
-        <button className="pt-14 text-lg text-pink-500" onClick={() => navigate("/menu")}>
-          <span className="text-xl">&#8249;</span>Back to Menu
+        <button
+          className="text-lg text-pink-500"
+          onClick={() => navigate("/menu")}
+        >
+          <span className="text-xl">&#8249;</span> Back to Menu
         </button>
       </div>
-      <div className="p-10 bg-white shadow-md h-auto">
-        <div className="flex justify-between">
-          <p className="text-3xl font-bold">Your Order #{order.order_id} is Confirmed</p>
-          <div className="bg-pink-500 w-64 h-10 rounded-3xl text-center">
-            <p className="text-xl font-bold pt-1 text-white">Status: {order.status}</p>
+      <div className="p-6 sm:p-10 bg-white shadow-md rounded-lg">
+        <div className="flex flex-col sm:flex-row justify-between items-center">
+          <p className="text-xl sm:text-3xl font-bold text-center sm:text-left">
+            Your Order #{order.order_id} is Confirmed
+          </p>
+          <div className="bg-pink-500 w-full sm:w-64 h-10 rounded-3xl text-center mt-4 sm:mt-0">
+            <p className="text-lg sm:text-xl font-bold text-white pt-1">
+              Status: {order.status}
+            </p>
           </div>
         </div>
 
-        <div>
+        <div className="mt-6 space-y-6">
           {cart.cartItems.map((cart_item, key) => (
-            <div key={key} className="pt-10">
-              <div className="flex">
-                <div className="pr-10">
-                  <img className="w-32 h-32 image-cover" src={`http://localhost:3000/images/${cart_item.image}`} alt="Cake" />
-                </div>
-                <div>
-                  <p className="text-xl font-bold">{cart_item.cakeName}</p>
-                  <p>
-                    {cart_item.quantity} x {cart_item.price}
+            <div key={key} className="flex flex-col sm:flex-row items-start sm:items-center">
+              <div className="w-32 h-32 sm:w-40 sm:h-40 mb-4 sm:mb-0 mr-10">
+                <img
+                  className="w-full h-full object-cover rounded-lg"
+                  src={`http://localhost:3000/images/${cart_item.image}`}
+                  alt="Cake"
+                />
+              </div>
+              <div className="flex-1">
+                <p className="text-lg sm:text-xl font-bold">
+                  {cart_item.cakeName}
+                </p>
+                <p className="text-gray-600">
+                  {cart_item.quantity} x ${cart_item.price.toFixed(2)}
+                </p>
+                {cart_item.message && (
+                  <p className="text-sm sm:text-lg italic">
+                    Message on cake: {cart_item.message}
                   </p>
-                  {cart_item.message && <p className="text-lg">Message on cake: {cart_item.message}</p>}
-                  {cart_item.toppings.map((topping, key) => (
-                    <p key={key}>{topping}</p>
+                )}
+                <div className="text-sm sm:text-base text-gray-700 mt-2">
+                  {cart_item.toppings.map((topping, idx) => (
+                    <p key={idx}>• {topping}</p>
                   ))}
                 </div>
               </div>
