@@ -1,85 +1,94 @@
-import { useContext, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom'
-import { Icon, Dropdown } from 'semantic-ui-react'
-import {LoginContext} from './LoginContext';
-import { getUser, userType } from '../services/apiUsers';
+import { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Icon, Dropdown } from "semantic-ui-react";
+import { LoginContext } from "./LoginContext";
+import { getUser, userType } from "../services/apiUsers";
 
-function UserProfile(){
+function UserProfile() {
+  const navigate = useNavigate();
+  const LoginProviderValues = useContext(LoginContext);
 
-    const navigate = useNavigate();
-    const LoginProviderValues=useContext(LoginContext);
+  const trigger = <Icon name="user circle" size="large" className="cursor-pointer" />;
 
-    const trigger = (
-        <Icon name='user circle' />
-      )
-    
-    if(!LoginProviderValues){
-        return null
+  if (!LoginProviderValues) {
+    return null;
+  }
+
+  const {
+    isLogin,
+    setIsLogin,
+    username,
+    isAdmin,
+    isGoogleLogin,
+    setIsGoogleLogin,
+  } = LoginProviderValues;
+  const [user, setUser] = useState<userType | null>(null);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const data = await getUser(username);
+        setUser(data);
+      } catch (err) {
+        console.error("Failed to fetch user data:", err);
+      }
     }
+    fetchData();
+  }, [username]);
 
-    const {isLogin,setIsLogin,username,isAdmin,isGoogleLogin,setIsGoogleLogin} = LoginProviderValues;
-    const [user,setUser] = useState<userType|null>(null);
+  function handleProfileClick() {
+    navigate("/updateprofile");
+  }
 
-    useEffect(()=>{
-        async function fetchData() {
-            try{
+  function handleOrdersClick() {
+    navigate("/orders");
+  }
 
-                const data= await getUser(username)
-                setUser(data)
-                
-            }
-            catch(err){
-                console.log(err)
-            }
-            
-        }
-        fetchData()
-    },[username])
+  function handleLogout() {
+    setIsLogin(false);
+    setIsGoogleLogin(false);
+    navigate("/");
+  }
 
-    function handleProfileClick(){
-        navigate("./updateprofile")
-    }
+  const options = [
+    { key: "name", text: `Hello, ${user?.name || "User"}`, className: "break-words" },
+    { key: "profile", text: "Profile", onClick: handleProfileClick },
+    { key: "my-orders", text: "Orders", onClick: handleOrdersClick },
+    { key: "help", text: "Help" },
+    { key: "sign-out", text: "Logout", onClick: handleLogout },
+  ];
 
-    function handleOrdersClick(){
-        navigate("./orders")
-    }
+  const adminOptions = [
+    { key: "name", text: `Hello, ${user?.name || "Admin"}` },
+    { key: "profile", text: "Profile", onClick: handleProfileClick },
+    { key: "sign-out", text: "Logout", onClick: handleLogout },
+  ];
 
-    function handleLogout(){
-        setIsLogin(false);
-        setIsGoogleLogin(false);
-        navigate("/")
-    }
-
-    const options = [
-        { key: 'name', text: `Hello, ${user?.name}`, className:'break-words'},
-        { key: 'profile', text: 'Profile', onClick: handleProfileClick },
-        { key: 'my-orders', text: 'Orders', onClick: handleOrdersClick },
-        { key: 'help', text: 'Help'},
-        { key: 'sign-out', text: 'Logout', onClick: handleLogout},
-      ]
-
-      const Adminoptions = [
-        { key: 'name', text: `Hello, ${user?.name}` },
-        { key: 'profile', text: 'Profile', onClick: handleProfileClick },
-        { key: 'sign-out', text: 'Logout', onClick: handleLogout},
-      ]
-
-    return(
-        <div>
-        {(isLogin || isGoogleLogin) && <div>
-            <Dropdown trigger={trigger} options={options}/>
-            </div>
-        }
-
-        {isAdmin && <div>
-            <Dropdown trigger={trigger} options={Adminoptions}/>
-            </div>
-        }
-
+  return (
+    <div className="relative">
+      {(isLogin || isGoogleLogin) && (
+        <div className="text-right">
+          <Dropdown
+            trigger={trigger}
+            options={options}
+            pointing="top right"
+            className="rounded"
+          />
         </div>
-    )
+      )}
 
-
+      {isAdmin && (
+        <div className="text-right">
+          <Dropdown
+            trigger={trigger}
+            options={adminOptions}
+            pointing="top right"
+            className="rounded"
+          />
+        </div>
+      )}
+    </div>
+  );
 }
 
 export default UserProfile;

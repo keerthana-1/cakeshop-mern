@@ -87,7 +87,7 @@ function CakeDetails(){
                 <div className="mb-5 text-pink-500">
                 <Link  className="hover:underline" to='/menu'> <span className="text-xl">&#8249;</span> Back</Link>
                 </div>
-                <img className="w-full object-cover" style={{ height: '500px' }} src={`../${cakeDetails?.image}`}></img>
+                <img className="w-full object-cover" style={{ height: '500px' }} src={`http://localhost:3000/images/${cakeDetails?.image}`}></img>
             </div>
             <div className="font-thin italic pt-3 text-sm">
                 <p>* All cakes are vegan and gluten-free </p>

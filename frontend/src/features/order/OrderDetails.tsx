@@ -85,7 +85,7 @@ function OrderDetails() {
             <div key={key} className="pt-10">
               <div className="flex">
                 <div className="pr-10">
-                  <img className="w-32 h-32 image-cover" src={`./${cart_item.image}`} alt="Cake" />
+                  <img className="w-32 h-32 image-cover" src={`http://localhost:3000/images/${cart_item.image}`} alt="Cake" />
                 </div>
                 <div>
                   <p className="text-xl font-bold">{cart_item.cakeName}</p>

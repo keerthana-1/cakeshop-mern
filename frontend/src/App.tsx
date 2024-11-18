@@ -1,7 +1,6 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Home from "./ui/Home";
 import AppLayout from "./ui/AppLayout";
-import Signup from "./features/user/Signup";
 import Login from "./features/user/Login";
 import Menu from "./features/menu/Menu";
 import ForgotPassword from "./features/user/ForgotPassword";
@@ -35,10 +34,6 @@ const router=createBrowserRouter([
   {
     path:'/menu/:cake',
     element:<CakeDetails></CakeDetails>
-  },
-  {
-    path:'/signup',
-    element:<Signup></Signup>
   },
   {
     path:'/login',

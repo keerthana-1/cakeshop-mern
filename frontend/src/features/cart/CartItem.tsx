@@ -37,7 +37,7 @@ function CartItem({data}:{data:cartItemType} ){
         <div className="max-w-5xl mx-auto rounded-lg overflow-hidden flex items-center justify-between mt-4">
        
             <div className="flex space-x-3 p-4">
-                <img className="w-32 h-32 image-cover " src={`./${data.image}`} />
+                <img className="w-32 h-32 image-cover " src={`http://localhost:3000/images/${data.image}`} />
                 <div>
                     <h3 className="text-lg font-medium italic text-gray-800 pl-4 pr-4 pt-5">{data.quantity}&nbsp;&nbsp; x <span className="text-lg font-semibold text-gray-800 pl-4"> {data.cakeName}</span> </h3>
                     <p className="pt-5 text-left pl-4">$ {(data.quantity * data.price).toFixed(2)}</p>

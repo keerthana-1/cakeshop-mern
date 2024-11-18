@@ -1,5 +1,3 @@
-/* flavor category price */
-
 import { useContext, useEffect, useState } from "react";
 import {
   categoryType,
@@ -22,10 +20,10 @@ import {
 function Filters() {
   const [flavors, setFlavors] = useState<flavorType[] | undefined>();
   const [categories, setCategories] = useState<categoryType[] | undefined>();
-
   const [loading, setLoading] = useState(true);
   const filterProviderValues = useContext(FilterContext);
   const [open, setOpen] = useState(false);
+
   if (!filterProviderValues) {
     throw new Error("FilterContext must be used within a FilterProvider");
   }
@@ -49,38 +47,39 @@ function Filters() {
     fetchData();
   }, []);
 
-  function ClearFilters(){
-    setFlavor("")
-    setCategory("")
-    setPrice(0)
-    setOpen(false)
+  function ClearFilters() {
+    setFlavor("");
+    setCategory("");
+    setPrice(0);
+    setOpen(false);
   }
 
-  if (loading) return <Loader></Loader>;
+  if (loading) return <Loader />;
 
-  if (!flavors || !categories) return <p>no filters</p>;
+  if (!flavors || !categories) return <p>No filters</p>;
 
   return (
     <Modal
-      
       onClose={() => setOpen(false)}
       onOpen={() => setOpen(true)}
       open={open}
       trigger={
-        <div className="mt-5 text-right mr-10">
-        <Btn className="pink">
-          <Icon name='filter' />
-          Filters
-        </Btn>
+        <div className="mt-5 text-right mr-4 sm:mr-8 md:mr-10">
+          <Btn className="pink">
+            <Icon name="filter" />
+            Filters
+          </Btn>
         </div>
       }
     >
       <ModalHeader>Filters</ModalHeader>
       <ModalContent>
-        <div className=' h-14 flex justify-center pr-20'>
-          <div className='pl-10 pr-20'>
+        {/* Responsive Filter Options */}
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 lg:gap-8">
+          {/* Flavor Filter */}
+          <div className="w-full sm:w-auto">
             <select
-              className='border border-pink-200 p-3 rounded-3xl'
+              className="border border-pink-200 p-3 rounded-3xl w-full sm:w-auto"
               onChange={(e) => setFlavor(e.target.value)}
             >
               {flavors.map((flavor, index) => (
@@ -90,9 +89,11 @@ function Filters() {
               ))}
             </select>
           </div>
-          <div className='pr-20'>
+
+          {/* Category Filter */}
+          <div className="w-full sm:w-auto">
             <select
-              className='border border-pink-200 p-3 rounded-3xl'
+              className="border border-pink-200 p-3 rounded-3xl w-full sm:w-auto"
               onChange={(e) => setCategory(e.target.value)}
             >
               {categories.map((category, index) => (
@@ -102,30 +103,28 @@ function Filters() {
               ))}
             </select>
           </div>
-          <div>
+
+          {/* Price Filter */}
+          <div className="w-full sm:w-auto">
             <select
-              className='border border-pink-200 p-3 rounded-3xl'
+              className="border border-pink-200 p-3 rounded-3xl w-full sm:w-auto"
               onChange={(e) => setPrice(Number(e.target.value))}
             >
-              <option value='10'>less than $10</option>
-              <option value='30'>less than $30</option>
-              <option value='50'>less than $50</option>
+              <option value="10">Less than $10</option>
+              <option value="30">Less than $30</option>
+              <option value="50">Less than $50</option>
             </select>
           </div>
         </div>
       </ModalContent>
-      
+
+      {/* Actions */}
       <ModalActions>
-      <div className="flex justify-end">
-        <div>
-        <Button onClick={() => setOpen(false)}>Apply</Button>
-        </div>
-        <div className="pl-3">
-        <Button onClick={ClearFilters}>Clear</Button>
-        </div>
+        <div className="flex flex-col sm:flex-row justify-end items-center gap-2">
+          <Button onClick={() => setOpen(false)}>Apply</Button>
+          <Button onClick={ClearFilters}>Clear</Button>
         </div>
       </ModalActions>
-      
     </Modal>
   );
 }

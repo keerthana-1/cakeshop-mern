@@ -85,7 +85,7 @@ function OrderDetails() {
                       <div className="pr-10">
                         <img
                           className="w-32 h-32 image-cover"
-                          src={`./${cart_item.image}`}
+                          src={`http://localhost:3000/images/${cart_item.image}`}
                         />
                       </div>
                       <div>
