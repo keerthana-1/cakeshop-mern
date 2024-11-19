@@ -1,5 +1,5 @@
 import { FormEvent, useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { LoginContext } from "../../ui/LoginContext";
 import Button from "../../ui/Button";
 import { updatePassword } from "../../services/apiUsers";
@@ -29,7 +29,15 @@ function ForgotPassword() {
   }
 
   return (
-    <div className="flex items-center justify-center pt-10 px-4 sm:px-8">
+    <div className="pt-10 px-4 sm:px-8">
+       <div className="mb-5 text-pink-500">
+          <Link className="hover:underline" to="/login">
+            <span className="text-xl">&#8249;</span> Back
+          </Link>
+        </div>
+    
+    <div className="flex items-center justify-center ">
+      
       <div className="w-full max-w-md sm:max-w-lg bg-white shadow-md rounded-lg p-6 sm:p-8">
         <form onSubmit={handleSubmit}>
           <p className="text-gray-700 text-2xl sm:text-3xl text-center font-bold mb-6">
@@ -86,6 +94,7 @@ function ForgotPassword() {
           </div>
         </form>
       </div>
+    </div>
     </div>
   );
 }

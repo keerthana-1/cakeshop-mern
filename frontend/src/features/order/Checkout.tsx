@@ -47,6 +47,11 @@ function Checkout() {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-[3fr_1fr] gap-6 lg:gap-10 m-5 lg:m-20">
       <div>
+      <div className="mb-5 text-pink-500">
+          <Link className="hover:underline" to="/cart">
+            <span className="text-xl">&#8249;</span> Back
+          </Link>
+        </div>
         <div className="bg-white shadow-md h-auto p-5">
           <div className="flex flex-col lg:flex-row space-y-2 lg:space-y-0 lg:space-x-4 justify-center pt-10 px-4">
             <div

@@ -1,5 +1,5 @@
 import { FormEvent, useContext, useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { cakeType, getCakeWithName } from "../../services/apiCakes";
 import { Loader } from "../../ui/Loader";
 import Button from "../../ui/Button";
@@ -23,6 +23,7 @@ function CakeDetails() {
   ];
   const LoginProviderValues = useContext(LoginContext);
   const CartProviderValues = useContext(CartContext);
+  const navigate=useNavigate();
 
   useEffect(() => {
     async function fetchCakeDetails() {
@@ -83,6 +84,7 @@ function CakeDetails() {
       },
     });
     toast("Item added to cart!");
+    navigate("/cart")
   }
 
   if (loading) return <Loader />;
