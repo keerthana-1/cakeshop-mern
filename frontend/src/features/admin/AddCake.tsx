@@ -100,6 +100,7 @@ export default function AddCake() {
               type="text"
               placeholder="Name"
               value={name}
+              required
             />
           </div>
 
@@ -112,6 +113,7 @@ export default function AddCake() {
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               rows={3}
               value={description}
+              required
             />
           </div>
 
@@ -123,6 +125,7 @@ export default function AddCake() {
               value={category}
               className="border border-pink-200 p-3 rounded-md w-full"
               onChange={(e) => setCategory(e.target.value)}
+              required
             >
               {categories?.map((category, index) => (
                 <option value={category.category} key={index}>
@@ -140,6 +143,7 @@ export default function AddCake() {
               value={flavor}
               className="border border-pink-200 p-3 rounded-md w-full"
               onChange={(e) => setFlavor(e.target.value)}
+              required
             >
               {flavors?.map((flavor, index) => (
                 <option value={flavor.flavor} key={index}>
@@ -159,6 +163,7 @@ export default function AddCake() {
               type="number"
               placeholder="Price"
               value={price}
+              required
             />
           </div>
 
@@ -170,6 +175,7 @@ export default function AddCake() {
               type="file"
               accept="image/*"
               onChange={(e) => setImage(e.target.files ? e.target.files[0] : null)}
+              required
             />
           </div>
 

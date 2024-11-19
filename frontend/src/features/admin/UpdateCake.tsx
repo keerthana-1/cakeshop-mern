@@ -60,6 +60,7 @@ export default function UpdateCake() {
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
+              required
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline"
             />
           </div>
@@ -68,6 +69,7 @@ export default function UpdateCake() {
             <input
               type="text"
               value={description}
+              required
               onChange={(e) => setDescription(e.target.value)}
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline"
             />
@@ -77,6 +79,7 @@ export default function UpdateCake() {
             <input
               type="text"
               value={category}
+              required
               onChange={(e) => setCategory(e.target.value)}
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline"
             />
@@ -86,6 +89,7 @@ export default function UpdateCake() {
             <input
               type="text"
               value={flavor}
+              required
               onChange={(e) => setFlavor(e.target.value)}
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline"
             />
@@ -95,6 +99,7 @@ export default function UpdateCake() {
             <input
               type="number"
               value={price}
+              required
               onChange={(e) => setPrice(parseFloat(e.target.value))}
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline"
             />
