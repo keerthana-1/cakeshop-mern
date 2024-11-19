@@ -1,17 +1,17 @@
 import { useEffect, useState } from "react";
 import { getOrderStatistics } from "../../services/apiOrder";
 
-interface statType{
-    totalOrders:number
-    totalRevenue:number
-    mostOrderedCake:string
-    ordersToday:number
-    uniqueCustomers:number
-    peakOrderingTime:string
+interface statType {
+  totalOrders: number;
+  totalRevenue: number;
+  mostOrderedCake: string;
+  ordersToday: number;
+  uniqueCustomers: number;
+  peakOrderingTime: string;
 }
 
 export default function OrderStatistics() {
-  const [stats, setStats] = useState<statType|null>(null);
+  const [stats, setStats] = useState<statType | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -32,32 +32,32 @@ export default function OrderStatistics() {
   if (!stats) return <p>No statistics available.</p>;
 
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4">Order Statistics</h1>
-      <div className="grid grid-cols-2 gap-6">
-        <div className="p-4 border rounded shadow-md">
-          <h2 className="text-lg font-semibold">Total Orders</h2>
-          <p>{stats.totalOrders}</p>
+    <div className="p-6 bg-white rounded-lg shadow-md">
+      <h1 className="text-2xl font-bold mb-6 text-center">Order Statistics</h1>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="p-4 border rounded shadow-md text-center">
+          <h2 className="text-lg font-semibold text-pink-500">Total Orders</h2>
+          <p className="text-xl font-bold">{stats.totalOrders}</p>
         </div>
-        <div className="p-4 border rounded shadow-md">
-          <h2 className="text-lg font-semibold">Total Revenue</h2>
-          <p>${stats.totalRevenue.toFixed(2)}</p>
+        <div className="p-4 border rounded shadow-md text-center">
+          <h2 className="text-lg font-semibold text-pink-500">Total Revenue</h2>
+          <p className="text-xl font-bold">${stats.totalRevenue.toFixed(2)}</p>
         </div>
-        <div className="p-4 border rounded shadow-md">
-          <h2 className="text-lg font-semibold">Most Ordered Cake</h2>
-          <p>{stats.mostOrderedCake}</p>
+        <div className="p-4 border rounded shadow-md text-center">
+          <h2 className="text-lg font-semibold text-pink-500">Most Ordered Cake</h2>
+          <p className="text-xl font-bold">{stats.mostOrderedCake}</p>
         </div>
-        <div className="p-4 border rounded shadow-md">
-          <h2 className="text-lg font-semibold">Orders Today</h2>
-          <p>{stats.ordersToday}</p>
+        <div className="p-4 border rounded shadow-md text-center">
+          <h2 className="text-lg font-semibold text-pink-500">Orders Today</h2>
+          <p className="text-xl font-bold">{stats.ordersToday}</p>
         </div>
-        <div className="p-4 border rounded shadow-md">
-          <h2 className="text-lg font-semibold">Unique Customers</h2>
-          <p>{stats.uniqueCustomers}</p>
+        <div className="p-4 border rounded shadow-md text-center">
+          <h2 className="text-lg font-semibold text-pink-500">Unique Customers</h2>
+          <p className="text-xl font-bold">{stats.uniqueCustomers}</p>
         </div>
-        <div className="p-4 border rounded shadow-md">
-          <h2 className="text-lg font-semibold">Peak Ordering Time</h2>
-          <p>{stats.peakOrderingTime}:00</p>
+        <div className="p-4 border rounded shadow-md text-center">
+          <h2 className="text-lg font-semibold text-pink-500">Peak Ordering Time</h2>
+          <p className="text-xl font-bold">{stats.peakOrderingTime}:00</p>
         </div>
       </div>
     </div>
