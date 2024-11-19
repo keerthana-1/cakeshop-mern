@@ -51,6 +51,7 @@ function CreateUser() {
               type="text"
               placeholder="Email"
               value={email}
+              required 
             />
           </div>
 
@@ -65,6 +66,7 @@ function CreateUser() {
               type="password"
               placeholder="****"
               value={password}
+              required 
             />
           </div>
 
@@ -79,6 +81,7 @@ function CreateUser() {
               type="text"
               placeholder="Name"
               value={name}
+              required 
             />
           </div>
 
@@ -93,6 +96,7 @@ function CreateUser() {
               type="text"
               placeholder="Address"
               value={address}
+              required 
             />
           </div>
 
@@ -101,12 +105,18 @@ function CreateUser() {
               Phone
             </label>
             <input
-              onChange={(e) => setPhone(e.target.value)}
+              onChange={(e)=>{const value = e.target.value;
+                if (/^\d{0,10}$/.test(value)) {
+                  setPhone(value);
+                  }}}
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="phone"
               type="text"
               placeholder="Phone number"
               value={phone}
+              
+              title="Please enter a valid 10-digit phone number"
+              required 
             />
           </div>
 

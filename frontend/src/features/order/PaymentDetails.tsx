@@ -70,22 +70,29 @@ function PaymentDetails({handleClick,handleBackClick}: PaymentDetailsProps){
         <form className="space-y-4">
             <div className=" mb-4">
                 <label className={labelStyle}>Card Number</label>
-                <input onChange={(e)=>setCardNumber(e.target.value)} type="text" className={inputStyle} value={cardNumber}/>
+                <input onChange={(e)=>{const value = e.target.value;
+      if (/^\d{0,16}$/.test(value)) {
+        setCardNumber(value);
+        }}}
+                type="text" required className={inputStyle} value={cardNumber}/>
             </div>
 
             <div className=" mb-4">
                 <label className={labelStyle}>Name</label>
-                <input onChange={(e)=>setName(e.target.value)} type="text" className={inputStyle} value={name}/>
+                <input onChange={(e)=>setName(e.target.value)} type="text" required className={inputStyle} value={name}/>
             </div>
 
             <div className=" mb-4">
                 <label className={labelStyle}>Security Code</label>
-                <input onChange={(e)=>setSecurity(e.target.value)} type="text" className={inputStyle} value={security}/>
+                <input onChange={(e)=>{const value = e.target.value;
+      if (/^\d{0,3}$/.test(value)) {
+        setSecurity(value);
+        }}} type="text" required className={inputStyle} value={security} />
             </div>
 
             <div className=" mb-4">
                 <label className={labelStyle}>Expiry Date</label>
-                <input onChange={(e)=>setExpiry(e.target.value)} type="date" className={inputStyle} value={expiry}/>
+                <input onChange={(e)=>setExpiry(e.target.value)} type="month" required className={inputStyle} value={expiry}/>
             </div>
            
         </form>

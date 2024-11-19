@@ -47,6 +47,7 @@ function ForgotPassword() {
               type="text"
               placeholder="Email"
               value={username}
+              required
             />
           </div>
 
@@ -61,6 +62,7 @@ function ForgotPassword() {
               type="password"
               placeholder="New Password"
               value={newPassword}
+              required
             />
           </div>
 
@@ -75,6 +77,7 @@ function ForgotPassword() {
               type="password"
               placeholder="Confirm Password"
               value={confirmPassword}
+              required
             />
           </div>
 

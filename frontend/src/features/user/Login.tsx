@@ -106,6 +106,7 @@ function Login() {
               type="text"
               placeholder="Username"
               value={username}
+              required
             />
           </div>
           <div className="mb-6">
@@ -119,6 +120,7 @@ function Login() {
               type="password"
               placeholder="****"
               value={password}
+              required
             />
           </div>
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">

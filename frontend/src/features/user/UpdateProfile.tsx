@@ -102,6 +102,7 @@ function UpdateProfile() {
               type="password"
               placeholder="****"
               value={password}
+              required
             />
           </div>
           <div className="mb-4">
@@ -115,6 +116,7 @@ function UpdateProfile() {
               type="text"
               placeholder="Name"
               value={name}
+              required
             />
           </div>
           <div className="mb-4">
@@ -128,6 +130,7 @@ function UpdateProfile() {
               type="text"
               placeholder="Address"
               value={address}
+              required
             />
           </div>
           <div className="mb-4">
@@ -135,12 +138,18 @@ function UpdateProfile() {
               Phone
             </label>
             <input
-              onChange={(e) => setPhone(e.target.value)}
+              onChange={(e)=>{const value = e.target.value;
+                if (/^\d{0,10}$/.test(value)) {
+                  setPhone(value);
+                  }}}
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="phone"
               type="text"
               placeholder="Phone number"
               value={phone}
+              pattern="^\d{10}$"
+              title="Please enter a valid 10-digit phone number"
+              required
             />
           </div>
           <div className="flex items-center justify-center">

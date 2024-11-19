@@ -21,6 +21,7 @@ function UserProfile() {
     isAdmin,
     isGoogleLogin,
     setIsGoogleLogin,
+    setIsAdmin
   } = LoginProviderValues;
   const [user, setUser] = useState<userType | null>(null);
 
@@ -46,6 +47,7 @@ function UserProfile() {
 
   function handleLogout() {
     setIsLogin(false);
+    setIsAdmin(false);
     setIsGoogleLogin(false);
     navigate("/");
   }

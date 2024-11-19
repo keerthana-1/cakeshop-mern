@@ -30,22 +30,26 @@ function ShippingDetails(){
             <form className="space-y-4">
                 <div className=" mb-4">
                     <label className={labelStyle}>Name</label>
-                    <input onChange={(e)=>setName(e.target.value)} type="text" className={inputStyle} value={name} />
+                    <input onChange={(e)=>setName(e.target.value)} type="text" required  className={inputStyle} value={name}/>
                 </div>
 
                 <div className="mb-4">
                     <label className={labelStyle}>Phone</label>
-                    <input onChange={(e)=>setPhone(e.target.value)} type="text" className={inputStyle} value={phone} />
+                    <input onChange={(e)=>{const value = e.target.value;
+      if (/^\d{0,10}$/.test(value)) {
+        setPhone(value);
+        }}} type="text" required className={inputStyle} value={phone}  pattern="^\d{10}"
+                            title="Please enter a valid 10-digit phone number"/>
                 </div>
 
                 <div className=" mb-4">
                     <label className={labelStyle}>Address</label>
-                    <input onChange={(e)=>setAddress(e.target.value)} type="text" className={inputStyle} value={address} />
+                    <input onChange={(e)=>setAddress(e.target.value)} type="text" required className={inputStyle} value={address} />
                 </div>
 
                 <div className="  mb-4">
                     <label className={labelStyle}>Delivery Date</label>
-                    <input onChange={(e)=>setDelivery(e.target.value)} type="date" className={inputStyle} value={delivery} />
+                    <input onChange={(e)=>setDelivery(e.target.value)} type="date" required className={inputStyle} value={delivery} min={new Date().toISOString().split("T")[0]}/>
                 </div>
                 <div className="pt-10 text-right">
                 <Button onClick={nextClick}>Next</Button>
