@@ -1,6 +1,7 @@
 import Button from "../../ui/Button";
 import { useState,useContext, FormEvent } from "react";
 import { OrderContext } from "../../ui/OrderContext";
+import { toast,ToastContainer } from "react-toastify";
 
 
 function ShippingDetails(){
@@ -21,11 +22,22 @@ function ShippingDetails(){
 
     function nextClick(e:FormEvent){
         e.preventDefault()
+        if (!name || !phone || !address || !delivery) {
+            toast.error("All fields are required!");
+            return;
+          }
+      
         dispatch({"type":"UPDATE_SHIPPING","payload":{"name":name,"address":address,"phone":phone,"delivery":delivery,"is_shipping":false}})
     }
 
     return(
+        
         <div className="flex justify-center items-center">
+        <ToastContainer
+          hideProgressBar={true}
+          position="bottom-center"
+          toastClassName="default-toast"
+        />
         <div className="w-1/2">
             <form className="space-y-4">
                 <div className=" mb-4">
@@ -57,6 +69,7 @@ function ShippingDetails(){
             </form>
         </div>
         </div>
+        
     )
 }
 

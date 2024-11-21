@@ -56,7 +56,6 @@ function UserProfile() {
     { key: "name", text: `Hello, ${user?.name || "User"}`, className: "break-words" },
     { key: "profile", text: "Profile", onClick: handleProfileClick },
     { key: "my-orders", text: "Orders", onClick: handleOrdersClick },
-    { key: "help", text: "Help" },
     { key: "sign-out", text: "Logout", onClick: handleLogout },
   ];
 

@@ -37,7 +37,7 @@ function Header() {
               className="h-10 w-10 rounded-full object-cover"
             />
           </Link>
-          <h1 className="text-2xl sm:text-3xl font-serif ml-4">caKe shop</h1>
+          <h1 className="text-2xl sm:text-3xl font-serif ml-4">The Cake Shop</h1>
         </div>
       </div>
 

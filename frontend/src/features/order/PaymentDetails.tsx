@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { CartContext } from "../../ui/CartContext";
 import { insertOrder, orderType } from "../../services/apiOrder";
 import { LoginContext } from "../../ui/LoginContext";
+import { toast,ToastContainer } from "react-toastify";
 
 interface PaymentDetailsProps {
     handleClick: () => void; 
@@ -37,6 +38,12 @@ function PaymentDetails({handleClick,handleBackClick}: PaymentDetailsProps){
 
     function handleOrder(e:FormEvent){
         e.preventDefault()
+
+        if (!cardNumber || !expiry || !name || !security) {
+            toast.error("All fields are required!");
+            return;
+          }
+
         dispatch({"type":"UPDATE_PAYMENT","payload":{"card_number":cardNumber,"expiry":expiry,"name":name,"security_code":security,is_shipping: true}})
         handleClick()
         const now=new Date()
@@ -66,6 +73,11 @@ function PaymentDetails({handleClick,handleBackClick}: PaymentDetailsProps){
 
     return (
         <div className="flex justify-center items-center">
+             <ToastContainer
+          hideProgressBar={true}
+          position="bottom-center"
+          toastClassName="default-toast"
+        />
         <div className="w-1/2">
         <form className="space-y-4">
             <div className=" mb-4">

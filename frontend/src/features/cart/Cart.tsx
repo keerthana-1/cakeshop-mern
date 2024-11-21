@@ -11,6 +11,7 @@ function Cart() {
 
   const CartProviderValues = useContext(CartContext);
 
+
   if (!CartProviderValues) {
     return null;
   }
@@ -19,7 +20,15 @@ function Cart() {
 
 
   function handleCheckout() {
+   
     navigate("/checkout");
+  }
+
+  if(state.cartItems.length===0){
+
+      return <p className="pt-10  text-pink-500 text-2xl text-center font-bold">Your Cart is Empty!</p>
+
+      
   }
 
   return (

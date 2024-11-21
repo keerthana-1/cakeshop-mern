@@ -49,7 +49,7 @@ function CartItem({data}:{data:cartItemType} ){
                     
                      <button className="pr-4" onClick={handleDecrement}>-</button><p className="pr-4">{existingCartItem?.quantity}</p><button onClick={handleIncrement}>+</button>
                 </div>
-                <Popup content='Delete Item' position="top center" trigger={ <button className="pr-4" onClick={handleDelete}>❌</button>} />
+                <Popup content='Delete Item' position="top center" trigger={ <button className="pr-4 text-red-600 italic underline" onClick={handleDelete}>Remove</button>} />
                
             </div>
         </div>
