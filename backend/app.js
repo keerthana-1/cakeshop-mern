@@ -158,18 +158,20 @@ app.put('/updateUser/:email', async(req,res)=>{
     }
 })
 
-app.post('/createUser', async(req,res)=>{
-    try{
+app.post('/createUser', async (req, res) => {
+    try {
         const userdata = req.body;
-        //console.log(newPassword)
-        const user=await User.create(userdata)
 
-      res.json({ message: 'user created successfully', user });
+        // Insert user into the 'users' collection
+        const user = await User.create(userdata);
+
+        res.json({ message: 'User created successfully', user });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'An error occurred while creating the user' });
     }
-    catch(err){
-        console.error(err)
-    }
-})
+});
+
 
 //---------------------------------------------------------------users
 
@@ -229,6 +231,7 @@ app.post('/createCake', upload.single("image"), async(req,res)=>{
         console.log(req.file)
         console.log(req.body)
         const imageName = req.file.filename;
+
 
         const newCake = {
             name,
@@ -310,6 +313,8 @@ app.get('/getcart/:cart_id',async(req,res)=>{
 app.post('/insertCart',async(req,res)=>{
     try{
         const cartData = req.body;
+
+
         const cart = await Cart.create(cartData) 
         console.log("cart created succesfully",cart)
     }
@@ -324,6 +329,7 @@ app.post('/insertCart',async(req,res)=>{
 app.post('/insertOrder',async(req,res)=>{
     try{
         const orderData = req.body;
+    
         const order = await Order.create(orderData) 
         console.log("order created succesfully",order)
     }
