@@ -12,9 +12,9 @@ export default function AddCake() {
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [category, setCategory] = useState("");
+  const [category, setCategory] = useState("cake");
   const [price, setPrice] = useState(0);
-  const [flavor, setFlavor] = useState("");
+  const [flavor, setFlavor] = useState("chocolate");
 
   useEffect(() => {
     async function fetchData() {
@@ -61,8 +61,8 @@ export default function AddCake() {
 
       alert("Cake Added Successfully!");
 
-      setCategory("");
-      setFlavor("");
+      setCategory("cake");
+      setFlavor("chocolate");
       setDescription("");
       setImage(null);
       setName("");

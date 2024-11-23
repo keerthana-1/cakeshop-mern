@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { PieChart, Pie, Tooltip, Legend, Cell } from 'recharts';
+import { PieChart, Pie, Tooltip, Cell } from 'recharts';
 import { getCakesGroupedByFlavor } from '../../services/apiCakes';
 
 export interface GroupedCakes{
@@ -49,7 +49,7 @@ const CakeFlavorPieChart = () => {
                     ))}
                 </Pie>
                 <Tooltip />
-                <Legend />
+                
             </PieChart>
         </div>
     );

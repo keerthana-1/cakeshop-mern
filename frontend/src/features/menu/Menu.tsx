@@ -37,7 +37,7 @@ function Menu() {
     cakes &&
     cakes.filter((cake) => {
       return (
-        (flavor ? cake.flavor.includes(flavor) : true) &&
+        (flavor ? cake.flavor===flavor : true) &&
         (category ? cake.category === category : true) &&
         (price ? cake.price <= price : true)
       );
