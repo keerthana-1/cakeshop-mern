@@ -5,20 +5,20 @@ function Reviews() {
 
   const reviews = [
     {
-      image: "./cake2.jpg",
+      image: "./cake1.jpg",
       name: "Keerthana Aravapalli",
       rating: "5",
       review: "Delicious chocolate cake with rich frosting.",
     },
     {
       image: "./cake2.jpg",
-      name: "Keerthana Aravapalli",
-      rating: "5",
+      name: "Manoj Cheruvu",
+      rating: "4",
       review: "Best cake I have ever tasted! So moist and flavorful.",
     },
     {
-      image: "./cake2.jpg",
-      name: "Keerthana Aravapalli",
+      image: "./cake3.jpg",
+      name: "Yamini Aravapalli",
       rating: "5",
       review: "Absolutely loved the rich chocolate flavor and smooth frosting.",
     },

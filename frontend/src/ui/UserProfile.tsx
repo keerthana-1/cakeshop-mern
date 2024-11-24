@@ -3,14 +3,17 @@ import { useNavigate } from "react-router-dom";
 import { Icon, Dropdown } from "semantic-ui-react";
 import { LoginContext } from "./LoginContext";
 import { getUser, userType } from "../services/apiUsers";
+import {FilterContext} from "./FilterContext";
+
 
 function UserProfile() {
   const navigate = useNavigate();
   const LoginProviderValues = useContext(LoginContext);
+  const FilterProviderValues = useContext(FilterContext);
 
   const trigger = <Icon name="user circle" size="large" className="cursor-pointer" />;
 
-  if (!LoginProviderValues) {
+  if (!LoginProviderValues || !FilterProviderValues) {
     return null;
   }
 
@@ -23,6 +26,13 @@ function UserProfile() {
     setIsGoogleLogin,
     setIsAdmin
   } = LoginProviderValues;
+
+  const{
+    setFlavor,
+    setCategory,
+    setPrice
+  } = FilterProviderValues;
+
   const [user, setUser] = useState<userType | null>(null);
 
   useEffect(() => {
@@ -49,6 +59,10 @@ function UserProfile() {
     setIsLogin(false);
     setIsAdmin(false);
     setIsGoogleLogin(false);
+    setFlavor("");
+    setCategory("");
+    setPrice(0);
+
     navigate("/");
   }
 
