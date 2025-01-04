@@ -92,6 +92,7 @@ function Carousel() {
           />
         ))}
       </div>
+      
     </div>
   );
 }
